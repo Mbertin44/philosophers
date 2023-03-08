@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: momo <momo@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/01 09:26:09 by momo              #+#    #+#              #
-#    Updated: 2023/03/01 13:46:19 by momo             ###   ########.fr        #
+#    Updated: 2023/03/08 14:53:03 by mbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,22 +16,20 @@ BONUS_PATH	=	src_bonus/
 LIBFT_PATH	=	libft
 LIBFT		=	libft/libft.a
 SRCS_PATH	=	src/
-# ARG			=	infile "/bin/cat" "grep e" "wc -l" outfile
+# ARG			=
 
 CC		=	gcc
 CFLAGS	=	-g -Wall -Werror -Wextra
 RM		=	rm -f
 
-SRCS		=	$(SRCS_PATH)philo.c
+SRCS		=	$(SRCS_PATH)philo.c \
+				$(SRCS_PATH)errors.c \
+				$(SRCS_PATH)parsing.c \
+				$(SRCS_PATH)parsing_utils.c \
+				$(SRCS_PATH)utils.c \
+				$(SRCS_PATH)get_time.c \
 
-# SRCS_BONUS	=	$(BONUS_PATH)pipex_bonus.c				\
-# 				$(BONUS_PATH)path_bonus.c				\
-# 				$(BONUS_PATH)pipe_and_fork_bonus.c		\
-# 				$(BONUS_PATH)pipex_utils_bonus.c		\
-# 				$(BONUS_PATH)check_and_redirect_bonus.c	\
-# 				$(BONUS_PATH)check_fd_bonus.c			\
-# 				$(BONUS_PATH)security_bonus.c			\
-# 				$(BONUS_PATH)get_next_line_bonus.c		\
+# SRCS_BONUS	=	$(BONUS_PATH)fichier.c				\
 
 OBJS			= 	${SRCS:.c=.o}
 OBJS_BONUS		= 	${SRCS_BONUS:.c=.o}

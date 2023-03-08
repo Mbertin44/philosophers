@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: momo <momo@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 13:53:50 by mbertin           #+#    #+#              #
-#    Updated: 2023/03/01 13:40:26 by momo             ###   ########.fr        #
+#    Updated: 2023/03/08 09:59:58 by mbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,10 @@ SRCS = 	$(SRCS_PATH)ft_atoi.c \
 		$(SRCS_PATH)ft_putstr_fd.c \
 		$(SRCS_PATH)ft_putendl_fd.c \
 		$(SRCS_PATH)ft_putnbr_fd.c \
+		$(SRCS_PATH)ft_putnbr_fd.c \
+		$(SRCS_PATH)ft_dbl_ptr_len.c \
+		$(SRCS_PATH)ft_dbl_ptr_copy.c \
+		$(SRCS_PATH)ft_dbl_ptr_free.c \
 
 OBJS = ${SRCS:%c=%o}
 

@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   ft_dbl_ptr_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ewurstei <ewurstei@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/01 09:35:01 by momo              #+#    #+#             */
-/*   Updated: 2023/03/08 15:15:22 by mbertin          ###   ########.fr       */
+/*   Created: 2022/12/01 21:09:56 by ewurstei          #+#    #+#             */
+/*   Updated: 2022/12/01 21:11:28 by ewurstei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../includes/libft.h"
 
-int	main(int argc, char const *argv[])
+int	ft_dbl_ptr_len(char **tab)
 {
-	t_vault	data;
+	int	i;
 
-	init_data(&data, argc, (char **)argv);
-	if (parsing(&data) == false)
-		return (1);
-	usleep(1000000);
-	printf("%ld ms\n", get_actual_time(&data));
-	return (0);
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }

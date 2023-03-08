@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/01 09:35:01 by momo              #+#    #+#             */
-/*   Updated: 2023/03/08 15:15:22 by mbertin          ###   ########.fr       */
+/*   Created: 2023/03/08 09:54:07 by mbertin           #+#    #+#             */
+/*   Updated: 2023/03/08 15:07:16 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int argc, char const *argv[])
+void	init_data(t_vault *data, int argc, char **argv)
 {
-	t_vault	data;
-
-	init_data(&data, argc, (char **)argv);
-	if (parsing(&data) == false)
-		return (1);
-	usleep(1000000);
-	printf("%ld ms\n", get_actual_time(&data));
-	return (0);
+	data->argc = argc;
+	data->argv = ft_dbl_ptr_copy(argv);
+	data->error = 0;
+	data->time_die = 0;
+	data->time_eat = 0;
+	data->time_sleep = 0;
+	data->nbr_time_eat = 0;
+	get_start_time(data);
 }

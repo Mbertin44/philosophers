@@ -6,11 +6,11 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 09:50:15 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/08 13:44:20 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/09 11:09:17 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../includes/philo.h"
 
 bool	parsing(t_vault *data)
 {
@@ -81,4 +81,3 @@ void	param_to_int(t_vault *data)
 	if (data->argc == 6)
 		data->nbr_time_eat = ft_atoi(data->argv[5]);
 }
-

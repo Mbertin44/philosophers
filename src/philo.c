@@ -6,11 +6,11 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 09:35:01 by momo              #+#    #+#             */
-/*   Updated: 2023/03/08 15:15:22 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/09 11:06:36 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../includes/philo.h"
 
 int	main(int argc, char const *argv[])
 {

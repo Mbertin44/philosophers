@@ -6,11 +6,11 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 13:32:26 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/08 13:32:43 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/09 11:06:42 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../includes/philo.h"
 
 void	check_param_value(t_vault *data)
 {

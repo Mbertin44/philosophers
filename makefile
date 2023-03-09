@@ -1,91 +1,73 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/01 09:26:09 by momo              #+#    #+#              #
-#    Updated: 2023/03/08 14:53:03 by mbertin          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#------------------------------------------------------------------------------#
+#								   GENERAL									   #
+#------------------------------------------------------------------------------#
+NAME = philo
+NAME_BONUS = philo_bonus
 
-NAME		=	philo
-NAME_BONUS	=	philo_bonus
-BONUS_PATH	=	src_bonus/
-LIBFT_PATH	=	libft
-LIBFT		=	libft/libft.a
-SRCS_PATH	=	src/
-# ARG			=
+CC = gcc
+#CC = gcc-11
+CFLAGS = -g -Wall -Werror -Wextra
+#CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+RM = rm -rf
 
-CC		=	gcc
-CFLAGS	=	-g -Wall -Werror -Wextra
-RM		=	rm -f
+#LSAN_OPTIONS=detect_leaks=1 ./cub3D
 
-SRCS		=	$(SRCS_PATH)philo.c \
-				$(SRCS_PATH)errors.c \
-				$(SRCS_PATH)parsing.c \
-				$(SRCS_PATH)parsing_utils.c \
-				$(SRCS_PATH)utils.c \
-				$(SRCS_PATH)get_time.c \
+#------------------------------------------------------------------------------#
+#								   LIBRARIES								   #
+#------------------------------------------------------------------------------#
+D_LIBFT = libft/
+LIBFT = libft/libft.a
+D_LIBFTHEAD = libft/includes/libft.h
 
-# SRCS_BONUS	=	$(BONUS_PATH)fichier.c				\
+#------------------------------------------------------------------------------#
+#									SOURCES									   #
+#------------------------------------------------------------------------------#
+HEADER = includes/philo.h
+D_SRC = src/
+D_OBJ = obj/
+OBJS = $(patsubst $(D_SRC)%.c,$(D_OBJ)%.o,$(SRCS))
+SRCS =	src/philo.c \
+		src/errors.c \
+		src/parsing.c \
+		src/parsing_utils.c \
+		src/utils.c \
+		src/get_time.c \
 
-OBJS			= 	${SRCS:.c=.o}
-OBJS_BONUS		= 	${SRCS_BONUS:.c=.o}
+#------------------------------------------------------------------------------#
+#									 RULES									   #
+#------------------------------------------------------------------------------#
 
-.c.o:
-				@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+all:	 $(NAME)
 
-all:	do_libft $(NAME)
+$(NAME):	$(D_OBJ) $(LIBFT) $(OBJS)
+# MacOS 42
+	@$(CC) $(CFLAGS) $(LIBFT) $(OBJS) -o $@
 
-$(NAME):	$(OBJS)
-			@echo "Compiling $(NAME) sources"
-			@$(CC) $(OBJS) $(LIBFT) $(CFLAGS) -o $(NAME)
-			@echo "Done !"
+$(LIBFT):	$(D_LIBFTHEAD)
+	@$(MAKE) -C $(D_LIBFT)
 
-do_libft:
-	@$(MAKE) -C $(LIBFT_PATH)
+$(D_OBJ):
+	@mkdir -p $(D_OBJ)
 
-# Removes objects
+$(OBJS): $(D_OBJ)%.o : $(D_SRC)%.c $(HEADER)
+		@$(CC) $(CFLAGS) -c $< -o $@
+
+
+#norm a checker
+norm:
+	@includes/ norminette
+	@src/ norminette
+
 clean:
-				@echo "Removing $(NAME) objects..."
-				@$(RM) $(OBJS) $(OBJS_BONUS)
-				@echo "Removing libft objects..."
-				@make clean -C $(LIBFT_PATH)
-				@echo "$(NAME) objects successfully deleted."
-				@echo "libft objects successfully deleted."
+	@$(RM) $(D_OBJ)
 
-# Removes objects and executable
-fclean: 		clean
-				@echo "Removing $(NAME) program..."
-				@$(RM) $(NAME)
-				@echo "Removing $(NAME_BONUS) program..."
-				@$(RM) $(NAME_BONUS)
-				@echo "Removing libft archive..."
-				@$(RM) $(LIBFT)
-				@echo "Executable(s) and archive(s) successfully deleted."
+fclean:	clean
+	@$(RM) $(NAME) $(NAME_BONUS)
 
-exe:			$(NAME)
-				@./philo
-# valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./philo $(ARG)
+lclean: fclean
+	@$(call lcleaning)
+	@$(MAKE) -s --no-print-directory -C $(D_LIBFT) fclean
 
-# Removes objects and executable then remakes all
-re: 			fclean all
+re:	fclean all
 
-re_bonus: 		fclean bonus
-
-.PHONY:			all clean fclean bonus re
-
-
-# ------------------------------- BONUS -------------------------------------
-
-bonus:	do_libft $(NAME_BONUS)
-
-$(NAME_BONUS):	$(OBJS_BONUS)
-				@echo "Compiling $(NAME_BONUS) sources"
-				@$(CC) $(OBJS_BONUS) $(LIBFT) $(CFLAGS) -o $(NAME_BONUS)
-				@echo "Done !"
-
-exe_bonus:		$(bonus)
-				valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./philo $(ARG)
+.PHONY: all clean fclean lclean re

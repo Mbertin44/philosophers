@@ -6,11 +6,11 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:45:22 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/08 15:11:32 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/09 11:06:40 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../includes/philo.h"
 
 void	get_start_time(t_vault *data)
 {

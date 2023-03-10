@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 09:50:15 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/09 11:09:17 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/09 12:27:40 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,5 @@ void	param_to_int(t_vault *data)
 	data->time_sleep = ft_atoi(data->argv[4]);
 	if (data->argc == 6)
 		data->nbr_time_eat = ft_atoi(data->argv[5]);
+	ft_dbl_ptr_free((void **)data->argv);
 }

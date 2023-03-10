@@ -30,8 +30,9 @@ SRCS =	src/philo.c \
 		src/errors.c \
 		src/parsing.c \
 		src/parsing_utils.c \
-		src/utils.c \
+		src/init.c \
 		src/get_time.c \
+		src/routine.c \
 
 #------------------------------------------------------------------------------#
 #									 RULES									   #

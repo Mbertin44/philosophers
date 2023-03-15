@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:18:06 by ewurstei          #+#    #+#             */
-/*   Updated: 2023/03/10 15:05:33 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/15 16:26:20 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef struct s_philo
 {
 	pthread_t		thread;
 	int				id; //Le numero de mon philo
-	int				f_left;// Le numero de la fourchette qu"il tien
-	int				f_right;// Le numero de la fourchette qu"il tien
-	int				nbr_eat; //Nombre de fois ou il mange
+	// int				f_left;// Le numero de la fourchette qu"il tien
+	// int				f_right;// Le numero de la fourchette qu"il tien
+	int				nbr_time_ate; //Nombre de fois ou il mange
 	long			time_last_eat; //Le dernier timestamp en milliseconde ou il à mangé. Pour verifier si mon philo est mort : Temps actuel - time_last_eat = Le temps que ca a pris pour manger
 	struct s_vault	*data;
 }	t_philo;
@@ -49,7 +49,8 @@ typedef struct s_vault
 	int				nbr_time_eat;
 	long int		start_time_ms;
 	long int		current_time_ms;
-	pthread_mutex_t	forks[200];
+	pthread_mutex_t	fork[200];
+	pthread_mutex_t	print_mutex;
 	struct timeval	start_time;
 	struct timeval	current_time;
 	int				death;
@@ -79,9 +80,11 @@ bool		init_philo(t_vault *data);
 /***** get_time.c *****/
 void		get_start_time(t_vault *data);
 long int	get_actual_time(t_vault *data);
+void		fixed_usleep(int time_to_sleep, t_vault *data);
 
 /***** routine.c *****/
 void		*routine(void *temp);
 bool		philo_is_alive(t_philo *philo);
+void		eat(t_philo *philo);
 
 #endif

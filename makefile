@@ -42,7 +42,7 @@ all:	 $(NAME)
 
 $(NAME):	$(D_OBJ) $(LIBFT) $(OBJS)
 # MacOS 42
-	@$(CC) $(CFLAGS) $(LIBFT) $(OBJS) -o $@
+	@$(CC) $(CFLAGS) -pthread $(LIBFT) $(OBJS) -o $@
 
 $(LIBFT):	$(D_LIBFTHEAD)
 	@$(MAKE) -C $(D_LIBFT)

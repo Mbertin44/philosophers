@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:45:22 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/15 14:55:04 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/16 14:51:10 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,22 @@ long int	get_actual_time(t_vault *data)
 	return (data->current_time_ms - data->start_time_ms);
 }
 
-void	fixed_usleep(int time_to_sleep, t_vault *data)
+bool	fixed_usleep(int time_to_sleep, t_philo *philo)
 {
 	int	start_sleep;
 	int	sleeping_time;
 
-	start_sleep = get_actual_time(data);
+	start_sleep = get_actual_time(philo->data);
 	while (1)
 	{
-		sleeping_time = get_actual_time(data) - start_sleep;
+		sleeping_time = get_actual_time(philo->data) - start_sleep;
+		if (sleeping_time >= philo->data->time_die)
+		{
+			philo->data->death = TRUE;
+			return (DEAD);
+		}
 		if (sleeping_time >= time_to_sleep)
-			break ;
-		usleep(500);
+			return (ALIVE);
+		usleep(10);
 	}
 }

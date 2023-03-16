@@ -27,9 +27,8 @@ D_SRC = src/
 D_OBJ = obj/
 OBJS = $(patsubst $(D_SRC)%.c,$(D_OBJ)%.o,$(SRCS))
 SRCS =	src/philo.c \
-		src/errors.c \
 		src/parsing.c \
-		src/parsing_utils.c \
+		src/utils.c \
 		src/init.c \
 		src/get_time.c \
 		src/routine.c \

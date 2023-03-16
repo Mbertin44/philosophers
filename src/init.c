@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 09:54:07 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/15 16:26:57 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/16 14:06:01 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ bool	init_philo(t_vault *data)
 	i = -1;
 	j = 1;
 	while (++i < data->nbr_philo)
-		pthread_mutex_init(&data->fork[i], NULL);
-	i = -1;
-	while (++i < data->nbr_philo)
 	{
 		data->philo[i].id = j;
 		data->philo[i].nbr_time_ate = 0;
@@ -49,6 +46,7 @@ bool	init_philo(t_vault *data)
 			data->error = 3;
 			return (false);
 		}
+		pthread_mutex_init(&data->fork[i], NULL);
 		j++;
 	}
 	return (true);

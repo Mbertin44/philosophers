@@ -7,7 +7,7 @@ NAME_BONUS = philo_bonus
 CC = gcc
 #CC = gcc-11
 CFLAGS = -g -Wall -Werror -Wextra
-#CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+# CFLAGS = -g -Wall -Wextra -Werror -fsanitize=thread
 RM = rm -rf
 
 #LSAN_OPTIONS=detect_leaks=1 ./cub3D
@@ -26,10 +26,10 @@ HEADER = includes/philo.h
 D_SRC = src/
 D_OBJ = obj/
 OBJS = $(patsubst $(D_SRC)%.c,$(D_OBJ)%.o,$(SRCS))
-SRCS =	src/philo.c \
+SRCS =	src/main.c \
 		src/parsing.c \
 		src/utils.c \
-		src/init.c \
+		src/init_and_stop.c \
 		src/get_time.c \
 		src/routine.c \
 

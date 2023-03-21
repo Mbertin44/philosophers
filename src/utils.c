@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 13:32:26 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/16 15:10:04 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/21 08:53:21 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ void	print_status(t_philo *philo, int msg)
 
 	data = philo->data;
 	pthread_mutex_lock(&philo->data->print_mutex);
-	if (msg == FORK)
+	if (philo->data->death == FALSE && msg == FORK)
 		printf("%ld %d has taken a fork\n", get_actual_time(data), philo->id);
-	else if (msg == EAT)
+	else if (philo->data->death == FALSE && msg == EAT)
 	{
 		printf("%ld %d has taken a fork\n", get_actual_time(data), philo->id);
 		printf("%ld %d is eating\n", get_actual_time(philo->data), philo->id);
 	}
-	else if (msg == SLEEP)
+	else if (philo->data->death == FALSE && msg == SLEEP)
 		printf("%ld %d is sleeping\n", get_actual_time(philo->data), philo->id);
-	else if (msg == THINK)
+	else if (philo->data->death == FALSE && msg == THINK)
 		printf("%ld %d is thinking\n", get_actual_time(philo->data), philo->id);
-	else if (msg == DIED)
+	else if (philo->data->death == TRUE && msg == DIED)
 		printf("%ld %d died\n", get_actual_time(philo->data), philo->id);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
@@ -58,18 +58,30 @@ bool	error_management(t_vault *data)
 	return (true);
 }
 
-bool	join_thread(t_vault *data)
+/*
+	Si je fais seulement un usleep de la durée du paramètre time_to_sleep,
+	il est possible que un des mes philos meurt PENDANT le usleep. Pour
+	corriger ce problème j'effectue plusieurs petit usleep dans une boucle
+	infini et je vérifie l'état de mes philos entre chaque rappel de la boucle.
+*/
+void	fixed_usleep(int time_to_sleep, t_philo *philo)
 {
-	int	i;
+	int	start_sleep;
+	int	sleeping_time;
 
-	i = -1;
-	while (++i < data->nbr_philo)
+	start_sleep = get_actual_time(philo->data);
+	while (1)
 	{
-		if (pthread_join(data->philo[i].thread, NULL) != 0)
+		sleeping_time = get_actual_time(philo->data) - start_sleep;
+		if (sleeping_time >= philo->data->time_die)
 		{
-			data->error = 4;
-			return (false);
+			pthread_mutex_lock(&philo->data->death_mutex);
+			philo->data->death = TRUE;
+			pthread_mutex_unlock(&philo->data->death_mutex);
+			return ;
 		}
+		if (sleeping_time >= time_to_sleep)
+			return ;
+		usleep(10);
 	}
-	return (true);
 }

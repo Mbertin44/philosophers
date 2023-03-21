@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:18:06 by ewurstei          #+#    #+#             */
-/*   Updated: 2023/03/16 15:19:09 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/20 14:35:21 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_philo
 	int				id;
 	int				nbr_time_ate;
 	long			time_last_eat;
+	int				full;
 	struct s_vault	*data;
 }	t_philo;
 
@@ -46,18 +47,21 @@ typedef struct s_vault
 	char			**argv;
 	int				error;
 	int				nbr_philo;
+	int				nbr_philo_full;
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
 	int				nbr_time_eat;
 	int				status;
+	int				death;
 	long int		start_time_ms;
 	long int		current_time_ms;
 	pthread_mutex_t	fork[200];
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	death_mutex;
+	pthread_mutex_t	time_mutex;
 	struct timeval	start_time;
 	struct timeval	current_time;
-	int				death;
 	t_philo			philo[200];
 }	t_vault;
 
@@ -74,23 +78,23 @@ void		check_param_value(t_vault *data);
 void		param_to_int(t_vault *data);
 void		print_status(t_philo *philo, int msg);
 bool		error_management(t_vault *data);
-bool		join_thread(t_vault *data);
-void		kill_them_all(t_vault *data);
+void		fixed_usleep(int time_to_sleep, t_philo *philo);
 
-/***** init.c *****/
+/***** init_and_stop.c *****/
 void		init_data(t_vault *data, t_philo *philo, int argc, char **argv);
 bool		init_philo(t_vault *data);
+bool		join_thread(t_vault *data);
+void		kill_them_all(t_vault *data);
 
 /***** get_time.c *****/
 void		get_start_time(t_vault *data);
 long int	get_actual_time(t_vault *data);
-bool		fixed_usleep(int time_to_sleep, t_philo *philo);
 
 /***** routine.c *****/
 void		*routine(void *temp);
-// bool		philo_is_alive(t_philo *philo);
-bool		philo_is_alive(t_vault *data);
+bool		philo_is_alive(t_vault *data, int i, long int actual_time);
 void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
+bool		philo_is_full(t_vault *data, int i);
 
 #endif

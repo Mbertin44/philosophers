@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 13:32:26 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/21 08:53:21 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/21 16:01:30 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,49 @@ void	check_param_value(t_vault *data)
 
 void	print_status(t_philo *philo, int msg)
 {
-	t_vault	*data;
+	t_vault		*data;
+	long int	actual_time_ms;
 
 	data = philo->data;
-	pthread_mutex_lock(&philo->data->print_mutex);
+	actual_time_ms = get_actual_time(data) - data->start_time_ms;
+	pthread_mutex_lock(&philo->data->death_mutex);
 	if (philo->data->death == FALSE && msg == FORK)
-		printf("%ld %d has taken a fork\n", get_actual_time(data), philo->id);
+	{
+		pthread_mutex_unlock(&philo->data->death_mutex);
+		pthread_mutex_lock(&philo->data->print_mutex);
+		printf("%ld %d has taken a fork\n", actual_time_ms, philo->id);
+		pthread_mutex_unlock(&philo->data->print_mutex);
+	}
 	else if (philo->data->death == FALSE && msg == EAT)
 	{
-		printf("%ld %d has taken a fork\n", get_actual_time(data), philo->id);
-		printf("%ld %d is eating\n", get_actual_time(philo->data), philo->id);
+		pthread_mutex_unlock(&philo->data->death_mutex);
+		pthread_mutex_lock(&philo->data->print_mutex);
+		printf("%ld %d has taken a fork\n", actual_time_ms, philo->id);
+		printf("%ld %d is eating\n", actual_time_ms, philo->id);
+		pthread_mutex_unlock(&philo->data->print_mutex);
 	}
 	else if (philo->data->death == FALSE && msg == SLEEP)
-		printf("%ld %d is sleeping\n", get_actual_time(philo->data), philo->id);
+	{
+		pthread_mutex_unlock(&philo->data->death_mutex);
+		pthread_mutex_lock(&philo->data->print_mutex);
+		printf("%ld %d is sleeping\n", actual_time_ms, philo->id);
+		pthread_mutex_unlock(&philo->data->print_mutex);
+	}
 	else if (philo->data->death == FALSE && msg == THINK)
-		printf("%ld %d is thinking\n", get_actual_time(philo->data), philo->id);
+	{
+		pthread_mutex_unlock(&philo->data->death_mutex);
+		pthread_mutex_lock(&philo->data->print_mutex);
+		printf("%ld %d is thinking\n", actual_time_ms, philo->id);
+		pthread_mutex_unlock(&philo->data->print_mutex);
+	}
 	else if (philo->data->death == TRUE && msg == DIED)
-		printf("%ld %d died\n", get_actual_time(philo->data), philo->id);
-	pthread_mutex_unlock(&philo->data->print_mutex);
+	{
+		pthread_mutex_unlock(&philo->data->death_mutex);
+		pthread_mutex_lock(&philo->data->print_mutex);
+		printf("%ld %d died\n", actual_time_ms, philo->id);
+		pthread_mutex_unlock(&philo->data->print_mutex);
+	}
+	pthread_mutex_unlock(&philo->data->death_mutex);
 }
 
 bool	error_management(t_vault *data)
@@ -73,15 +98,8 @@ void	fixed_usleep(int time_to_sleep, t_philo *philo)
 	while (1)
 	{
 		sleeping_time = get_actual_time(philo->data) - start_sleep;
-		if (sleeping_time >= philo->data->time_die)
-		{
-			pthread_mutex_lock(&philo->data->death_mutex);
-			philo->data->death = TRUE;
-			pthread_mutex_unlock(&philo->data->death_mutex);
-			return ;
-		}
 		if (sleeping_time >= time_to_sleep)
 			return ;
-		usleep(10);
+		usleep(100);
 	}
 }

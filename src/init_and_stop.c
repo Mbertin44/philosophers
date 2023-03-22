@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 09:54:07 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/20 14:35:34 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/22 13:29:38 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_data(t_vault *data, t_philo *philo, int argc, char **argv)
 	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->death_mutex, NULL);
 	pthread_mutex_init(&data->time_mutex, NULL);
+	pthread_mutex_init(&data->sleep_mutex, NULL);
 }
 
 bool	init_philo(t_vault *data)
@@ -37,6 +38,10 @@ bool	init_philo(t_vault *data)
 
 	i = -1;
 	j = 1;
+	while (++i < data->nbr_philo)
+		pthread_mutex_init(&data->fork[i], NULL);
+	i = -1;
+	pthread_mutex_lock(&data->sleep_mutex);
 	while (++i < data->nbr_philo)
 	{
 		data->philo[i].id = j;
@@ -50,9 +55,9 @@ bool	init_philo(t_vault *data)
 			data->error = 3;
 			return (false);
 		}
-		pthread_mutex_init(&data->fork[i], NULL);
 		j++;
 	}
+	pthread_mutex_unlock(&data->sleep_mutex);
 	return (true);
 }
 
@@ -61,29 +66,13 @@ void	kill_them_all(t_vault *data)
 	int	i;
 
 	i = -1;
-	pthread_mutex_unlock(&data->death_mutex);
 	while (++i < data->nbr_philo)
-	{
-		if (pthread_join(data->philo[i].thread, NULL) != 0)
-			data->error = 4;
 		pthread_mutex_destroy(&data->fork[i]);
-	}
-	pthread_mutex_destroy(&data->print_mutex);
-}
-
-bool	join_thread(t_vault *data)
-{
-	int	i;
-
 	i = -1;
 	while (++i < data->nbr_philo)
 	{
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
-		{
 			data->error = 4;
-			return (false);
-		}
 	}
-	return (true);
+	pthread_mutex_destroy(&data->print_mutex);
 }
-

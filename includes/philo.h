@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:18:06 by ewurstei          #+#    #+#             */
-/*   Updated: 2023/03/20 14:35:21 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/22 13:55:41 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_vault
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	time_mutex;
+	pthread_mutex_t	sleep_mutex;
 	struct timeval	start_time;
 	struct timeval	current_time;
 	t_philo			philo[200];
@@ -76,14 +77,14 @@ void		check_param_value(t_vault *data);
 
 /***** utils.c *****/
 void		param_to_int(t_vault *data);
-void		print_status(t_philo *philo, int msg);
+void		print_status(t_philo *philo, char *str);
+void		print_dead(t_philo *philo);
 bool		error_management(t_vault *data);
 void		fixed_usleep(int time_to_sleep, t_philo *philo);
 
 /***** init_and_stop.c *****/
 void		init_data(t_vault *data, t_philo *philo, int argc, char **argv);
 bool		init_philo(t_vault *data);
-bool		join_thread(t_vault *data);
 void		kill_them_all(t_vault *data);
 
 /***** get_time.c *****/
@@ -96,5 +97,6 @@ bool		philo_is_alive(t_vault *data, int i, long int actual_time);
 void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 bool		philo_is_full(t_vault *data, int i);
+int			check_dead(t_philo *philo);
 
 #endif

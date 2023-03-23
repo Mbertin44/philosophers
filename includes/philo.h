@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:18:06 by ewurstei          #+#    #+#             */
-/*   Updated: 2023/03/22 13:55:41 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:15:12 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ bool		philo_is_alive(t_vault *data, int i, long int actual_time);
 void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 bool		philo_is_full(t_vault *data, int i);
-int			check_dead(t_philo *philo);
+bool		check_dead(t_philo *philo);
 
 #endif

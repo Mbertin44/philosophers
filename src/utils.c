@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 13:32:26 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/22 14:01:21 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:15:33 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_status(t_philo *philo, char *str)
 
 	data = philo->data;
 	actual_time_ms = get_actual_time(data) - data->start_time_ms;
-	if (check_dead(philo) == FALSE)
+	if (check_dead(philo) == false)
 	{
 		pthread_mutex_lock(&philo->data->print_mutex);
 		printf("%ld %d %s\n", actual_time_ms, philo->id, str);

@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:16:52 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/23 09:14:23 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:15:28 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*routine(void *temp)
 	pthread_mutex_unlock(&philo->data->sleep_mutex);
 	if (philo->id % 2 == 0)
 		usleep(15000);
-	while (check_dead(philo) == FALSE)
+	while (check_dead(philo) == false)
 	{
 		eating(philo);
 		sleeping(philo);
@@ -89,7 +89,7 @@ bool	philo_is_alive(t_vault *data, int i, long int actual_time)
 		pthread_mutex_unlock(&data->time_mutex);
 		if (philo_is_full(data, i) == false)
 			return (false);
-		if (check_dead(&data->philo[i]) == TRUE || time_he_eat > data->time_die)
+		if (check_dead(&data->philo[i]) == true || time_he_eat > data->time_die)
 		{
 			data->death = TRUE;
 			print_dead(&data->philo[i]);
@@ -115,14 +115,14 @@ bool	philo_is_full(t_vault *data, int i)
 	return (true);
 }
 
-int	check_dead(t_philo *philo)
+bool	check_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->death_mutex);
 	if (philo->data->death == TRUE)
 	{
 		pthread_mutex_unlock(&philo->data->death_mutex);
-		return (TRUE);
+		return (true);
 	}
 	pthread_mutex_unlock(&philo->data->death_mutex);
-	return (FALSE);
+	return (false);
 }

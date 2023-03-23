@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:16:52 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/22 14:02:58 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:14:23 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,55 +19,6 @@ hardcode pour 1 philo
 essayer de placer un usleep entre chaque création de philo au lieu des paires et impair
 */
 
-// void	*routine(void *temp)
-// {
-// 	t_philo	*philo;
-
-// 	philo = (t_philo *)temp;
-// 	pthread_mutex_lock(&philo->data->sleep_mutex);
-// 	pthread_mutex_unlock(&philo->data->sleep_mutex);
-// 	if (philo->id % 2 == 0)
-// 		usleep(1500);
-// 	while (1)
-// 	{
-// 		pthread_mutex_lock(&philo->data->death_mutex);
-// 		if (philo->data->death == FALSE)
-// 		{
-// 			pthread_mutex_unlock(&philo->data->death_mutex);
-// 			eating(philo);
-// 		}
-// 		else
-// 			pthread_mutex_unlock(&philo->data->death_mutex);
-// 		pthread_mutex_lock(&philo->data->death_mutex);
-// 		if (philo->data->death == FALSE && philo->data->nbr_philo > 1)
-// 		{
-// 			pthread_mutex_unlock(&philo->data->death_mutex);
-// 			sleeping(philo);
-// 		}
-// 		else
-// 			pthread_mutex_unlock(&philo->data->death_mutex);
-// 		pthread_mutex_lock(&philo->data->death_mutex);
-// 		if (philo->data->death == FALSE && philo->data->nbr_philo > 1)
-// 		{
-// 			pthread_mutex_unlock(&philo->data->death_mutex);
-// 			print_status(philo, "is thinking", ALIVE);
-// 		}
-// 		else
-// 			pthread_mutex_unlock(&philo->data->death_mutex);
-// 		pthread_mutex_lock(&philo->data->death_mutex);
-// 		if (philo->data->death == TRUE
-// 			|| philo->data->nbr_philo_full == philo->data->nbr_philo
-// 			|| philo->data->nbr_philo == 1)
-// 		{
-// 			pthread_mutex_unlock(&philo->data->death_mutex);
-// 			break ;
-// 		}
-// 		else
-// 			pthread_mutex_unlock(&philo->data->death_mutex);
-// 	}
-// 	return (NULL);
-// }
-
 void	*routine(void *temp)
 {
 	t_philo	*philo;
@@ -77,7 +28,6 @@ void	*routine(void *temp)
 	pthread_mutex_unlock(&philo->data->sleep_mutex);
 	if (philo->id % 2 == 0)
 		usleep(15000);
-	// while (philo->data->death == FALSE)
 	while (check_dead(philo) == FALSE)
 	{
 		eating(philo);
@@ -112,37 +62,8 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(&data->fork[philo->id - 1]);
 }
 
-// void	eating(t_philo *philo)
-// {
-// 	t_vault	*data;
-
-// 	data = philo->data;
-// 	pthread_mutex_lock(&data->fork[philo->id - 1]);
-// 	print_status(philo, "has taken a fork");
-// 	if (philo->data->nbr_philo > 1)
-// 	{
-// 		pthread_mutex_lock(&data->fork[philo->id % philo->data->nbr_philo]);
-// 		print_status(philo, "is eating");
-// 		pthread_mutex_lock(&data->time_mutex);
-// 		philo->time_last_eat = get_actual_time(data) - data->start_time_ms;
-// 		pthread_mutex_unlock(&data->time_mutex);
-// 		fixed_usleep(data->time_eat, philo);
-// 		pthread_mutex_unlock(&data->fork[philo->id - 1]);
-// 		pthread_mutex_unlock(&data->fork[philo->id % philo->data->nbr_philo]);
-// 		if (philo->data->argc == 6)
-// 		{
-// 			pthread_mutex_lock(&data->death_mutex);
-// 			philo->nbr_time_ate++;
-// 			pthread_mutex_unlock(&data->death_mutex);
-// 		}
-// 	}
-// 	else
-// 		pthread_mutex_unlock(&data->fork[philo->id - 1]);
-// }
-
 void	sleeping(t_philo *philo)
 {
-	// print_status(philo, "is sleeping", -0);
 	print_status(philo, "is sleeping");
 	fixed_usleep(philo->data->time_sleep, philo);
 }

@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 09:50:15 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/16 14:05:45 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 13:52:41 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ bool	check_param_is_digit(t_vault *data)
 			if (ft_isdigit(data->argv[i][j]) == 1)
 			{
 				data->error = 1;
+				ft_dbl_ptr_free((void **)data->argv);
 				return (false);
 			}
 		}

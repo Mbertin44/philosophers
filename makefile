@@ -30,7 +30,7 @@ SRCS =	src/main.c \
 		src/parsing.c \
 		src/utils.c \
 		src/init_and_stop.c \
-		src/get_time.c \
+		src/get_time_and_check.c \
 		src/routine.c \
 
 #------------------------------------------------------------------------------#

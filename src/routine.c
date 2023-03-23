@@ -6,17 +6,14 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:16:52 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/23 09:15:28 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 11:22:33 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
 /*
-./philo 50 510 250 250 -- Un philo meurt alors qu'il devrait pas + data race
-./philo 4 510 250 250 -- datarace
-hardcode pour 1 philo
-essayer de placer un usleep entre chaque création de philo au lieu des paires et impair
+
 */
 
 void	*routine(void *temp)
@@ -28,7 +25,7 @@ void	*routine(void *temp)
 	pthread_mutex_unlock(&philo->data->sleep_mutex);
 	if (philo->id % 2 == 0)
 		usleep(15000);
-	while (check_dead(philo) == false)
+	while (check_dead(philo) == false && check_full(philo) == false)
 	{
 		eating(philo);
 		sleeping(philo);
@@ -55,9 +52,9 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(&data->fork[philo->id % philo->data->nbr_philo]);
 	if (philo->data->argc == 6)
 	{
-		pthread_mutex_lock(&data->death_mutex);
+		pthread_mutex_lock(&data->food_mutex);
 		philo->nbr_time_ate++;
-		pthread_mutex_unlock(&data->death_mutex);
+		pthread_mutex_unlock(&data->food_mutex);
 	}
 	pthread_mutex_unlock(&data->fork[philo->id - 1]);
 }
@@ -91,7 +88,9 @@ bool	philo_is_alive(t_vault *data, int i, long int actual_time)
 			return (false);
 		if (check_dead(&data->philo[i]) == true || time_he_eat > data->time_die)
 		{
+			pthread_mutex_lock(&data->philo->data->death_mutex);
 			data->death = TRUE;
+			pthread_mutex_unlock(&data->philo->data->death_mutex);
 			print_dead(&data->philo[i]);
 			return (false);
 		}
@@ -104,25 +103,21 @@ bool	philo_is_alive(t_vault *data, int i, long int actual_time)
 
 bool	philo_is_full(t_vault *data, int i)
 {
+	pthread_mutex_lock(&data->food_mutex);
 	if (data->argc == 6 && data->philo[i].nbr_time_ate
 		>= data->nbr_time_eat && data->philo[i].full == FALSE)
 	{
+		pthread_mutex_unlock(&data->food_mutex);
 		data->philo[i].full = TRUE;
+		pthread_mutex_lock(&data->food_mutex);
 		data->nbr_philo_full++;
 		if (data->nbr_philo_full == data->nbr_philo)
+		{
+			pthread_mutex_unlock(&data->food_mutex);
 			return (false);
+		}
+		pthread_mutex_unlock(&data->food_mutex);
 	}
+	pthread_mutex_unlock(&data->food_mutex);
 	return (true);
-}
-
-bool	check_dead(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->data->death_mutex);
-	if (philo->data->death == TRUE)
-	{
-		pthread_mutex_unlock(&philo->data->death_mutex);
-		return (true);
-	}
-	pthread_mutex_unlock(&philo->data->death_mutex);
-	return (false);
 }

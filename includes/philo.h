@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:18:06 by ewurstei          #+#    #+#             */
-/*   Updated: 2023/03/23 09:15:12 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 11:18:09 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_vault
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	time_mutex;
 	pthread_mutex_t	sleep_mutex;
+	pthread_mutex_t	food_mutex;
 	struct timeval	start_time;
 	struct timeval	current_time;
 	t_philo			philo[200];
@@ -84,12 +85,16 @@ void		fixed_usleep(int time_to_sleep, t_philo *philo);
 
 /***** init_and_stop.c *****/
 void		init_data(t_vault *data, t_philo *philo, int argc, char **argv);
-bool		init_philo(t_vault *data);
+bool		init_philo(t_vault *data, int i, int j);
 void		kill_them_all(t_vault *data);
+bool		lonely_init(t_vault *data);
+void		*lonely_routine(void *temp);
 
-/***** get_time.c *****/
+/***** get_time_and_check.c *****/
 void		get_start_time(t_vault *data);
 long int	get_actual_time(t_vault *data);
+bool		check_dead(t_philo *philo);
+bool		check_full(t_philo *philo);
 
 /***** routine.c *****/
 void		*routine(void *temp);
@@ -97,6 +102,5 @@ bool		philo_is_alive(t_vault *data, int i, long int actual_time);
 void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 bool		philo_is_full(t_vault *data, int i);
-bool		check_dead(t_philo *philo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:18:06 by ewurstei          #+#    #+#             */
-/*   Updated: 2023/03/23 11:18:09 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 14:06:38 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdbool.h>
-# include "../libft/includes/libft.h"
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 					/***** DEFINES *****/
 # define TRUE 0
@@ -102,5 +104,18 @@ bool		philo_is_alive(t_vault *data, int i, long int actual_time);
 void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 bool		philo_is_full(t_vault *data, int i);
+
+/***** libft_utils.c *****/
+int		ft_isdigit(int c);
+void	ft_dbl_ptr_free(void **ptr);
+size_t	ft_strlen(const char *s);
+int		ft_atoi(const char *str);
+char	**ft_dbl_ptr_copy(char **source);
+
+/***** libft_utils.c *****/
+void	*ft_calloc(size_t nbr, size_t size);
+void	ft_bzero(void *s, size_t n);
+int		ft_dbl_ptr_len(char **tab);
+char	*ft_strdup(const char *s1);
 
 #endif

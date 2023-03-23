@@ -15,9 +15,9 @@ RM = rm -rf
 #------------------------------------------------------------------------------#
 #								   LIBRARIES								   #
 #------------------------------------------------------------------------------#
-D_LIBFT = libft/
-LIBFT = libft/libft.a
-D_LIBFTHEAD = libft/includes/libft.h
+# D_LIBFT = libft/
+# LIBFT = libft/libft.a
+# D_LIBFTHEAD = libft/includes/libft.h
 
 #------------------------------------------------------------------------------#
 #									SOURCES									   #
@@ -32,6 +32,8 @@ SRCS =	src/main.c \
 		src/init_and_stop.c \
 		src/get_time_and_check.c \
 		src/routine.c \
+		src/libft_utils.c \
+		src/libft_utils2.c
 
 #------------------------------------------------------------------------------#
 #									 RULES									   #
@@ -39,12 +41,14 @@ SRCS =	src/main.c \
 
 all:	 $(NAME)
 
-$(NAME):	$(D_OBJ) $(LIBFT) $(OBJS)
+# $(NAME):	$(D_OBJ) $(LIBFT) $(OBJS)
+$(NAME):	$(D_OBJ) $(OBJS)
 # MacOS 42
-	@$(CC) $(CFLAGS) -pthread $(LIBFT) $(OBJS) -o $@
+	@$(CC) $(CFLAGS) -pthread $(OBJS) -o $@
+# @$(CC) $(CFLAGS) -pthread $(LIBFT) $(OBJS) -o $@
 
-$(LIBFT):	$(D_LIBFTHEAD)
-	@$(MAKE) -C $(D_LIBFT)
+# $(LIBFT):	$(D_LIBFTHEAD)
+# 	@$(MAKE) -C $(D_LIBFT)
 
 $(D_OBJ):
 	@mkdir -p $(D_OBJ)

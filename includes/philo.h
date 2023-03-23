@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:18:06 by ewurstei          #+#    #+#             */
-/*   Updated: 2023/03/23 14:08:37 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 14:10:54 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,16 @@ void		sleeping(t_philo *philo);
 bool		philo_is_full(t_vault *data, int i);
 
 /***** libft_utils.c *****/
-int		ft_isdigit(int c);
-void	ft_dbl_ptr_free(void **ptr);
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
-char	**ft_dbl_ptr_copy(char **source);
+int			ft_isdigit(int c);
+void		ft_dbl_ptr_free(void **ptr);
+size_t		ft_strlen(const char *s);
+int			ft_atoi(const char *str);
+char		**ft_dbl_ptr_copy(char **source);
 
-/***** libft_utils.c *****/
-void	*ft_calloc(size_t nbr, size_t size);
-void	ft_bzero(void *s, size_t n);
-int		ft_dbl_ptr_len(char **tab);
-char	*ft_strdup(const char *s1);
+/***** libft_utils2.c *****/
+void		*ft_calloc(size_t nbr, size_t size);
+void		ft_bzero(void *s, size_t n);
+int			ft_dbl_ptr_len(char **tab);
+char		*ft_strdup(const char *s1);
 
 #endif

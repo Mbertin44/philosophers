@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:18:06 by ewurstei          #+#    #+#             */
-/*   Updated: 2023/03/23 14:06:38 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 14:08:37 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@
 # define FALSE 1
 # define ALIVE 0
 # define DEAD 1
-# define FORK 1
-# define EAT 2
-# define SLEEP 3
-# define THINK 4
-# define DIED 5
 
 					/***** STRUTURES *****/
 

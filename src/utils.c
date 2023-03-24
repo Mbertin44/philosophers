@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 13:32:26 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/24 08:46:10 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/24 08:54:41 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,6 @@ void	print_dead(t_philo *philo)
 	printf("%ld %d died\n", actual_time_ms, philo->id);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
-
-// void	print_status(t_philo *philo, char *str, int fork)
-// {
-// 	t_vault		*data;
-// 	long int	actual_time_ms;
-
-// 	data = philo->data;
-// 	actual_time_ms = get_actual_time(data) - data->start_time_ms;
-// 	pthread_mutex_lock(&philo->data->print_mutex);
-// 	printf("%ld %d %s (fourchette %d)\n", actual_time_ms, philo->id, str, fork);
-// 	pthread_mutex_unlock(&philo->data->print_mutex);
-// }
 
 bool	error_management(t_vault *data)
 {

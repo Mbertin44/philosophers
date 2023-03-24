@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 09:54:07 by mbertin           #+#    #+#             */
-/*   Updated: 2023/03/23 13:50:35 by mbertin          ###   ########.fr       */
+/*   Updated: 2023/03/23 16:02:24 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ bool	init_philo(t_vault *data, int i, int j)
 		}
 		j++;
 	}
+	printf("%d\n", i);
 	pthread_mutex_unlock(&data->sleep_mutex);
 	return (true);
 }

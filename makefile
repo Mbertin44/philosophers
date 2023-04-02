@@ -1,26 +1,16 @@
 #------------------------------------------------------------------------------#
-#								   GENERAL									   #
+#					GENERAL				       #
 #------------------------------------------------------------------------------#
 NAME = philo
 NAME_BONUS = philo_bonus
 
 CC = gcc
-#CC = gcc-11
 CFLAGS = -g -Wall -Werror -Wextra
 # CFLAGS = -g -Wall -Wextra -Werror -fsanitize=thread
 RM = rm -rf
 
-#LSAN_OPTIONS=detect_leaks=1 ./cub3D
-
 #------------------------------------------------------------------------------#
-#								   LIBRARIES								   #
-#------------------------------------------------------------------------------#
-# D_LIBFT = libft/
-# LIBFT = libft/libft.a
-# D_LIBFTHEAD = libft/includes/libft.h
-
-#------------------------------------------------------------------------------#
-#									SOURCES									   #
+#					SOURCES				       #
 #------------------------------------------------------------------------------#
 HEADER = includes/philo.h
 D_SRC = src/
@@ -36,19 +26,13 @@ SRCS =	src/main.c \
 		src/libft_utils2.c
 
 #------------------------------------------------------------------------------#
-#									 RULES									   #
+#					RULES				       #
 #------------------------------------------------------------------------------#
 
 all:	 $(NAME)
 
-# $(NAME):	$(D_OBJ) $(LIBFT) $(OBJS)
 $(NAME):	$(D_OBJ) $(OBJS)
-# MacOS 42
 	@$(CC) $(CFLAGS) -pthread $(OBJS) -o $@
-# @$(CC) $(CFLAGS) -pthread $(LIBFT) $(OBJS) -o $@
-
-# $(LIBFT):	$(D_LIBFTHEAD)
-# 	@$(MAKE) -C $(D_LIBFT)
 
 $(D_OBJ):
 	@mkdir -p $(D_OBJ)

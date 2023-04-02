@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/byaliego/42-project-badges/blob/main/badges/philosophers.png?raw=true">
+</p>
+
 # Projet Philosophers
 
 Le projet Philosophers est un projet de l'école 42 qui consiste à résoudre le problème classique de la synchronisation des processus connu sous le nom de problème des philosophes dîneurs. Le but est de concevoir un programme qui simule le comportement des philosophes qui partagent une table ronde et qui ont besoin de prendre leurs fourchettes pour manger, mais qui ne peuvent prendre une fourchette que si elle est disponible et qui ne peuvent manger que s'ils ont les deux fourchettes.

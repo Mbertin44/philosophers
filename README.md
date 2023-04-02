@@ -20,17 +20,17 @@ Le programme simule le comportement des philosophes et permet de contrôler le n
 
 Pour utiliser le programme, vous pouvez le compiler en utilisant le Makefile fourni. Une fois compilé, vous pouvez exécuter le programme en fournissant les arguments souhaités. Les arguments disponibles sont :
 
-◦ number_of_philosophers : Le nombre de philosophes, mais aussi le nombre de fourchettes. (minimun 1 et maximum 200)
-◦ time_to_die (en millisecondes) : Si un philosophe n’a pas commencé à manger time_to_die millisecondes après le début de son précédent repas ou depuis le début de la  simulation, il meurt.
-◦ time_to_eat (en millisecondes) : Le temps qu’un philosophe prend à manger. Pendant ce temps, un philosophe doit garder ses deux fourchettes.
-◦ time_to_sleep (en millisecondes) : Le temps qu’un philosophe passe à dormir.
-◦ number_of_times_each_philosopher_must_eat (argument optionnel) : Si tous les philosophes ont mangé au moins number_of_times_each_philosopher_must_eat fois, la simulation prend fin. Si cet argument n’est pas spécifié, alors la simulation prend fin à la mort d’un philosophe.
+- number_of_philosophers : Le nombre de philosophes, mais aussi le nombre de fourchettes. (minimun 1 et maximum 200)
+- time_to_die (en millisecondes) : Si un philosophe n’a pas commencé à manger time_to_die millisecondes après le début de son précédent repas ou depuis le début de la  simulation, il meurt.
+- time_to_eat (en millisecondes) : Le temps qu’un philosophe prend à manger. Pendant ce temps, un philosophe doit garder ses deux fourchettes.
+- time_to_sleep (en millisecondes) : Le temps qu’un philosophe passe à dormir.
+- number_of_times_each_philosopher_must_eat (argument optionnel) : Si tous les philosophes ont mangé au moins number_of_times_each_philosopher_must_eat fois, la simulation prend fin. Si cet argument n’est pas spécifié, alors la simulation prend fin à la mort d’un philosophe.
 
 Voici un exemple d'utilisation :
 
 `./philo 5 800 200 200`
 
-Ce qui lance le programme avec 5 philosophes, un temps de 800 ms avant de mourir, un temps pour manger de 200 ms et un temps pour dormir de 200 ms.
+Ce qui lance le programme avec 5 philosophes, un temps de 800 ms avant de mourir, mange pendant 200 ms et un dort pendant 200 ms.
 
 ## Compilation
 
